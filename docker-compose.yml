@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: schedulemail_container
+    image: postgres
+    environment:
+      POSTGRES_USER: schedulemail
+      POSTGRES_PASSWORD: schedulemail
+      PGDATA: /data/schedulemail
+    volumes:
+      - postgres:/data/schedulemail
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:

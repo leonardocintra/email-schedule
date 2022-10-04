@@ -3,10 +3,10 @@ import { SendgridService } from './sendgrid.service';
 
 @Controller('api/v1/sendgrid')
 export class SendgridController {
-    constructor(private readonly sendGridService: SendgridService) { }
-    @Post()
-    sendEmail(@Body() body) {
-        console.log('ronaldoooo');
-        return this.sendGridService.sendEmail(body);
-    }
+  constructor(private readonly sendGridService: SendgridService) {}
+
+  @Post()
+  async sendEmail(@Body() body) {
+    return this.sendGridService.sendEmail(body);
+  }
 }
