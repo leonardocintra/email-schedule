@@ -8,7 +8,7 @@ export class MailEntity {
     @Column({ name: 'destination_address', nullable: false })
     destinationAddress: string;
 
-    @Column({ name: 'due_date', type: 'datetime', nullable: false })
+    @Column({ name: 'due_date', type: 'timestamp', nullable: false })
     dueDate: string;
 
     @Column({ name: 'status' })

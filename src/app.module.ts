@@ -4,10 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './configs/TypeOrmModuleOptions';
 import { SendgridModule } from './app/sendgrid/sendgrid.module';
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(typeOrmConfig),
-    SendgridModule],
+  imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(typeOrmConfig), SendgridModule],
   controllers: [],
   providers: [],
 })
