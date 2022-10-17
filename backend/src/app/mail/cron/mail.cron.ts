@@ -12,7 +12,14 @@ export class MailCron {
 
   constructor(private readonly mailService: MailService, private readonly sendGridService: SendgridService) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_5_MINUTES)
+  async estorno() {
+    await this.sendGridService.sendEstorno();
+    this.logger.log('Enviado estorno com sucesso!');
+  }
+
+
+  @Cron(CronExpression.EVERY_12_HOURS)
   async handler() {
     const mailList = await this.mailService.findAll({
       dueDateLte: new Date().toISOString(),
