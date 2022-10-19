@@ -1,14 +1,26 @@
 import JoditEditor from "jodit-react";
-import { useMemo } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 
-export function RichInput() {
+type Props = {
+    name: string;
+}
+
+export function RichInput({ name }: Props) {
+
+    const { control } = useFormContext()
+
     return (
-        
-        <JoditEditor
-            value={''}
-            // config={{ readonly: false }}
-            onChange={(newContent) => { }}
+        <Controller
+            name={name}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+                <JoditEditor
+                    value={value}
+                    onBlur={(value: string) => onChange(value)}
+                />
+            )}
         />
+
     );
 
 }
