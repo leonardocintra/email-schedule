@@ -10,7 +10,7 @@ export class MailCron {
 
   private logger = new Logger(MailCron.name);
 
-  constructor(private readonly mailService: MailService, private readonly sendGridService: SendgridService) {}
+  constructor(private readonly mailService: MailService, private readonly sendGridService: SendgridService) { }
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   async estorno() {
@@ -19,12 +19,16 @@ export class MailCron {
   }
 
 
-  @Cron(CronExpression.EVERY_12_HOURS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async handler() {
     const mailList = await this.mailService.findAll({
       dueDateLte: new Date().toISOString(),
       status: MailStatusEnum.WAITING,
     });
+
+    if (mailList.length === 0) {
+      this.logger.warn('Nenhum email encontrado para ser enviado!');
+    }
 
     for (const mail of mailList) {
       const data: SendEmailInterface = {

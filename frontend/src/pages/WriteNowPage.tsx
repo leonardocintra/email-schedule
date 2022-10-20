@@ -1,18 +1,21 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, DateTimePicker, Nav, RichInput } from "../components";
 import { IWriteNowForm } from "../interfaces";
+import { MailsServices } from "../services";
 import { WriteNowResolver } from "../validations";
 
 export function WriteNowPage() {
 
     const formMethods = useForm<IWriteNowForm>({ resolver: WriteNowResolver });
-    const { formState: { errors }, register, handleSubmit } = formMethods;
+    const { formState: { errors }, register, handleSubmit, reset } = formMethods;
 
-    function aoSalvar(values: any) {
-        console.log(values);
+    async function aoSalvar(values: IWriteNowForm) {
+        const { status } = await MailsServices.sendEmail(values);
+
+        if (status === 201) {
+            reset();
+        }
     }
-
-
 
     return (
         <>
